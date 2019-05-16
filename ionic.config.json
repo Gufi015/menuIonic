@@ -1,5 +1,7 @@
 {
   "name": "menuApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
