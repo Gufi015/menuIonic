@@ -1,5 +1,5 @@
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { Component, OnInit, ViewChild, AfterViewInit } from "@angular/core";
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from "@angular/core";
 declare var google;
 
 @Component({
@@ -9,7 +9,7 @@ declare var google;
 })
 export class MapPage implements OnInit, AfterViewInit {
   apikey = "AIzaSyCoX4qbPxPxgv6vsO2EYsMhSrvURx0ZU6o";
-  @ViewChild("map") googleMap;
+  @ViewChild("map") googleMap:ElementRef;
   mapElement: any;
   map: any;
   mapOptions: any;
@@ -36,7 +36,7 @@ export class MapPage implements OnInit, AfterViewInit {
       console.log(this.mapCenter.lat);
       console.log(this.mapCenter.lng);
     }).catch((error) => {
-      console.log(error);
+      console.log('error getting locations' +error);
     });
   }
 
@@ -55,13 +55,12 @@ export class MapPage implements OnInit, AfterViewInit {
 
     setTimeout(() => {
       this.map = new google.maps.Map(this.mapElement, this.mapOptions);
-      this.makerOptions.position = new google.maps.LatLng(this.mapCenter);
-      // alert(this.makerOptions.position);
+      this.makerOptions.position = new google.maps.LatLng(this.mapCenter.lat, this.mapCenter.lng);
       this.makerOptions.map = this.map;
       this.makerOptions.title = "Mi locacion";
       this.marker = new google.maps.Marker(this.makerOptions);
       console.log(this.makerOptions);
 
-    },2000);
+    }, 2000);
   }
 }
